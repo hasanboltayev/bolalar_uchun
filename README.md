@@ -1,4 +1,3 @@
-# bolalar_uchun
 import tkinter as tk
 from tkinter import PhotoImage
 from PIL import Image, ImageTk
@@ -21,7 +20,7 @@ user_surname = ""
 
 correct_count = 0
 wrong_count = 0
-selected_lang = "uz"  # boshlanishda o‘zbekcha bo‘lsin
+selected_lang = "ru"  # boshlanishda o‘zbekcha bo‘lsin
 
 def connect_to_database():
     global conn, cursor
@@ -54,14 +53,14 @@ def connect_to_database():
 def ask_user_info(root):
     info_window = tk.Toplevel(root)
     info_window.title("Foydalanuvchi ma'lumotlari")
-    info_window.geometry("400x200")
+    info_window.geometry("600x300")
     info_window.grab_set()
 
-    tk.Label(info_window, text="Ismingiz:", font=("Arial", 12)).pack(pady=5)
+    tk.Label(info_window, text="Ismingiz! What is your name? Как вас зовут? Aapka naam kya hai?", font=("Arial", 12)).pack(pady=5)
     name_entry = tk.Entry(info_window, font=("Arial", 12))
     name_entry.pack(pady=5)
 
-    tk.Label(info_window, text="Familyangiz:", font=("Arial", 12)).pack(pady=5)
+    tk.Label(info_window, text="Familyangi? Your surname? Ваша фамилия? aapka upnaam?", font=("Arial", 12)).pack(pady=5)
     surname_entry = tk.Entry(info_window, font=("Arial", 12))
     surname_entry.pack(pady=5)
 
@@ -76,21 +75,6 @@ def ask_user_info(root):
 
     tk.Button(info_window, text="Boshlash", font=("Arial", 12), bg="green", fg="white",
               command=save_info_and_continue).pack(pady=20)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -116,21 +100,12 @@ def save_result(category, question, user_answer, correct_answer, is_correct, lan
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 def speak_gtts(text, lang='uz'):
     try:
         if lang == 'uz':
             lang = 'ru'  # ❗ uz o‘rniga ru ishlatiladi
+            lang = 'hi'
+            lang = 'en'
 
         filename = f"voice_{uuid.uuid4()}.mp3"
         tts = gTTS(text=text, lang=lang)
@@ -144,7 +119,7 @@ def speak_gtts(text, lang='uz'):
 def set_language(lang_code):
     global selected_lang
     selected_lang = lang_code
-    print(f"🔄 Tanlangan til: {selected_lang}")
+    print(f"🔄 Tanlangan til! Выбранный язык!: {selected_lang}")
 
     til_nomi = {
         "uz": "O‘zbek",
@@ -153,7 +128,7 @@ def set_language(lang_code):
         "en": "English"
     }
 
-    message_label.config(text=f"Tanlangan til: {til_nomi.get(lang_code, 'Tanlanmagan')}")
+    message_label.config(text=f"Tanlangan til! Выбранный язык!: {til_nomi.get(lang_code, 'Tanlanmagan')}")
 
     if selected_lang == "uz":
         speak_gtts("Til o‘zgartirildi: O‘zbek", lang='uz')
@@ -180,13 +155,13 @@ engine.setProperty('rate', 150)  # Nutq tezligini sozlash (default 200)
 # Asosiy oynani yaratish
 root = tk.Tk()
 root.state('zoomed') 
-root.title("Bolalar uchun ingliz tilini interaktiv o‘rganish / बच्चों के लिए इंटरएक्टिव इंग्लिश लर्निंग")
+root.title("Интерактивное изучение хинди, русского и английского языков для детей/बच्चों के लिए इंटरएक्टिव हिंदी, रूसी और अंग्रेज़ी सीखना")
 root.geometry("1366x768")
 
 
 root.config(bg="#f0f8ff")  # Fon rangini o‘rnatish
 
-label1 = tk.Label(root, text=" Bolalar uchun ingliz tilini interaktiv o‘rganish / बच्चों के लिए इंटरएक्टिव अंग्रेज़ी अध्ययन  ", font=("Arial", 20, "bold"), fg="darkblue", width=200, bg="#f0f8ff")
+label1 = tk.Label(root, text=" Интерактивное изучение хинди, русского и английского языков для детей/बच्चों के लिए इंटरएक्टिव हिंदी, रूसी और अंग्रेज़ी सीखना", font=("Arial", 20, "bold"), fg="darkblue", width=200, bg="#f0f8ff")
 label1.pack(pady=20)
 
 
@@ -355,12 +330,6 @@ try:
     milk_image = ImageTk.PhotoImage(milk_image)
 
 
-
-
-
-
-
-
 ############################## ranglar tugadi ##################################################
 
 except Exception as e:
@@ -368,44 +337,46 @@ except Exception as e:
 
 # Hayvonlar, mevalar va qushlar uchun ro‘yxatlar
 animals = [
-    ("Mushuk / बिल्ली(billi)", cat_image),
-    ("It / कुत्ता(kutta)", it_image),
-    ("Yo‘lbars / बाघ (baagh)", yol_image),
-    ("Sher / शेर (sher)", sher_image),
-    ("Fil / हाथी (haathi)", fil_image),
-    ("Ot / 	घोड़ा (ghoda)", ot_image),
-    ("Maymun / 	बंदर (bandar)", maymun_image),
-    ("Jirafa/ जिराफ़ (jiraaf)", jirafa_image),
-    ("Zebra / ज़ेबरा (zebra)", zebra_image),
-    ("Ayiq / भालू (bhalu)", ayiq_image)
+    ("Mushuk! बिल्ली(billi)! Кошка! Cat!", cat_image),
+    ("It! कुत्ता(kutta)! Собака! dog!", it_image),
+    ("Yo‘lbars! बाघ (baagh)! Тигр! Tiger!", yol_image),
+    ("Sher! शेर (sher)! Лев! Lion!", sher_image),
+    ("Fil! हाथी (haathi)! Слон! Elephant!", fil_image),
+    ("Ot! घोड़ा (ghoda)! Лошадь! Horse!", ot_image),
+    ("Maymun! बंदर (bandar)! Обезьяна! Monkey!", maymun_image),
+    ("Jirafa! जिराफ़ (jiraaf)! Жираф! Giraffe!", jirafa_image),
+    ("Zebra! ज़ेबरा (zebra)! Зебра! Zebra!", zebra_image),
+    ("Ayiq! भालू (bhalu)! Медведь! Bear", ayiq_image)
 ]
 
 fruits = [
-    ("Olma / सेब (seb)", apple_image),
-    ("Banan / केला (kela)", banana_image),
-    ("Uzum / अंगूर (angoor)", uzum_image),
-    ("Apelsin / संतरा (santra)", apelsin_image),
-    ("Mango / आम (aam)", mango_image),
-    ("Ananas / अनानास (ananas)", ananas_image),
-    ("Qulupnay / स्ट्रॉबेरी (strawberry)", qulupnay_image),
-    ("Sho‘rva / सूप (soop)", shorva_image),
-    ("Tarvuz / तरबूज (tarbooj)", tarvuz_image),
-    ("Papayya / पपीता (papita)", papaya_image)
+    ("Olma! सेब (seb)! Яблоко! Apple!", apple_image),
+    ("Banan! केला (kela)! Банан! Banana!", banana_image),
+    ("Uzum! अंगूर (angoor)! Виноград! Grapes!", uzum_image),
+    ("Apelsin! संतरा (santra)! Апельсин! Orange!", apelsin_image),
+    ("Mango! आम (aam)! Манго! Mango!", mango_image),
+    ("Ananas! अनानास (ananas)! Ананас! Pineapple!", ananas_image),
+    ("Qulupnay! स्ट्रॉबेरी (strawberry)! Клубника! Strawberry!", qulupnay_image),
+    ("Sho‘rva! सूप (soop)! Суп! Soup!", shorva_image),
+    ("Tarvuz! तरबूज (tarbooj)! Арбуз! Watermelon!", tarvuz_image),
+    ("Papayya! पपीता (papita)! Папайя! Papaya!", papaya_image)
 ]
+
 
 
 birds = [
-    ("Popugay / तोता (tota)", papugay_image),
-    ("Mayna / मैना (maina)", mynah_image),
-    ("Kabutar / कबूतर (kabootar)", Pigeon_image),
-    ("Boyqush / उल्लू (ullu)", boyqush_image),
-    ("Pingvin / पेंगुइन (penguin)", pingvin_image),
-    ("Tovus qushi / मोर (mor)", tavus_qushi_image),
-    ("Oqqush / हंस (hans)", oqqush_image),
-    ("Qarg‘a / कौआ (kauaa)", karga_image),
-    ("Kumush qush / सिल्वर बर्ड (silver bird)", kumush_qush_image),
-    ("Albatros / अल्बाट्रॉस (albatross)", yelkan_qushi_image)
+    ("Popugay! तोता (tota)! Попугай! Parrot!", papugay_image),
+    ("Mayna! मैना (maina)! Майна! Mynah!", mynah_image),
+    ("Kabutar! कबूतर (kabootar)! Голубь! Pigeon!", Pigeon_image),
+    ("Boyqush! उल्लू (ullu)! Сова! Owl!", boyqush_image),
+    ("Pingvin! पेंगुइन (penguin)! Пингвин! Penguin!", pingvin_image),
+    ("Tovus qushi! मोर (mor)! Павлин! Peacock!", tavus_qushi_image),
+    ("Oqqush! हंस (hans)! Лебедь! Swan!", oqqush_image),
+    ("Qarg‘a! कौआ (kauaa)! Ворона! Crow!", karga_image),
+    ("Kumush qush! (silver bird)! Серебристая птица! Silver bird!", kumush_qush_image),
+    ("Albatros! अल्बाट्रॉस (albatross)! Альбатрос! Albatross!", yelkan_qushi_image)
 ]
+
 
 
 
@@ -413,30 +384,31 @@ birds = [
 ##########################################################################
 
 colors = [
-    ("Qizil / लाल (laal)", red_image),
-    ("Ko‘k / नीला (neela)", blue_image),
-    ("Yashil / हरा (hara)", green_image),
-    ("Sariq / पीला (peela)", yellow_image),
-    ("Qora / काला (kaala)", black_image),
-    ("Oq / सफेद (saphed)", white_image)
+    ("Qizil! लाल (laal)! Красный! Red!", red_image),
+    ("Ko‘k! नीला (neela)! Синий! Blue!", blue_image),
+    ("Yashil! हरा (hara)! Зелёный! Green!", green_image),
+    ("Sariq! पीला (peela)! Жёлтый! Yellow!", yellow_image),
+    ("Qora! काला (kaala)! Чёрный! Black!", black_image),
+    ("Oq! सफेद (saphed)! Белый! White!", white_image)
 ]
 
 
 school_items = [
-    ("Kitob / किताब (kitaab)", book_image),
-    ("Ruchka / पेन (pen)", pen_image),
-    ("Qalam / पेंसिल (pencil)", pencil_image),
-    ("Sumka / बैग (bag)", bag_image),
-    ("Chizg‘ich / पैमाना (paimaana)", ruler_image)
+    ("Kitob! किताब (kitaab)! Книга! Book!", book_image),
+    ("Ruchka! पेन (pen)! Ручка! Pen!", pen_image),
+    ("Qalam! पेंसिल (pencil)! Карандаш! Pencil!", pencil_image),
+    ("Sumka! बैग (bag)! Рюкзак! Сумка! Bag!", bag_image),
+    ("Chizg‘ich! पैमाना (paimaana)! Линейка! Ruler!", ruler_image)
 ]
 
 
+
 foods = [
-    ("Non / रोटी (roti)", bread_image),
-    ("Guruch / चावल (chaawal)", rice_image),
-    ("Go‘sht / मांस (maans)", meat_image),
-    ("Tuxum / अंडा (anda)", egg_image),
-    ("Sut / दूध (doodh)", milk_image)
+    ("Non! रोटी (roti)! Хлеб! Bread!", bread_image),
+    ("Guruch! चावल (chaawal)! Рис! Rice!", rice_image),
+    ("Go‘sht! मांस (maans)! Мясо! Meat!", meat_image),
+    ("Tuxum! अंडा (anda)! Яйцо! Egg!", egg_image),
+    ("Sut! दूध (doodh)! Молоко! Milk!", milk_image)
 ]
 
 
@@ -470,17 +442,17 @@ message_label.pack(pady=20)
 # So‘z va rasmni ko‘rsatish, shuningdek matnni ovozga aylantirish
 def show_word_and_image(category):
     global current_category, current_answer
-    if category == "Hayvonlar / जानवर (Jaanvar)":
+    if category == "Hayvonlar / जानवर (Jaanvar)/ Животные / Animals":
         words_images = animals
-    elif category == "Mevalar / फल (Phal)":
+    elif category == "Mevalar / फल (Phal) / Фрукты / Fruits":
         words_images = fruits
-    elif category == "Qushlar / पक्षी (Pakshī)":
+    elif category == "Qushlar / पक्षी (Pakshi) / Птицы / Birds":
         words_images = birds
-    elif category == "Ranglar / रंग (Rang)":
+    elif category == "Ranglar / रंग (Rang) / Цвета / Colors":
         words_images = colors
-    elif category == "O‘quv qurollari / अध्ययन सामग्री":
+    elif category == "O‘quv qurollari / अध्ययन सामग्री / Школьные принадлежности / School supplies":
         words_images = school_items
-    elif category == "Ovqatlar / खाना (khaana)":
+    elif category == "Ovqatlar / खाना (khaana) / Питание / Meals":
         words_images = foods
     else:
         words_images = []
@@ -488,7 +460,7 @@ def show_word_and_image(category):
     current_answer, image = random.choice(words_images)
     current_answer = current_answer.strip()  # ⚠️ MUHIM QATOR!
     image_label.config(image=image)
-    word_label.config(text=" Bu nima? / यह क्या है?/ (Yeh kya hai?)")
+    word_label.config(text=" Bu nima? / यह क्या है?/ (Yeh kya hai?) / Что это? / What is this?")
     current_category = category
     message_label.config(text="")
     create_answer_buttons()
@@ -503,13 +475,13 @@ def check_answer(user_answer):
 
     if is_correct:
         correct_count += 1
-        message_label.config(text=f"✅ To'g'ri! | ✅ {correct_count} | ❌ {wrong_count}", fg="green")
-        speak_gtts("Barakalla! To‘g‘ri javob berding!", lang=selected_lang)
+        message_label.config(text=f"✅ To'g'ri! верно!  right!  | ✅ {correct_count} | ❌ {wrong_count}", fg="green")
+        speak_gtts("Barakalla! Молодец! Bravo! Shabaash!", lang=selected_lang)
         root.after(1500, lambda: show_word_and_image(current_category))
     else:
         wrong_count += 1
-        message_label.config(text=f"❌ Xato! | ✅ {correct_count} | ❌ {wrong_count}", fg="red")
-        speak_gtts("Yana urinib ko‘r!", lang=selected_lang)
+        message_label.config(text=f"❌ Xato! Ошибка! Error! Galti! | ✅ {correct_count} | ❌ {wrong_count}", fg="red")
+        speak_gtts("Yana urinib ko‘r! Попробуй снова! Try again! Phir se koshish karo!", lang=selected_lang)
 
     # ✅ Faqat shu yerda natijani bazaga yozing
     save_result(current_category, word_label.cget("text"), user_answer, current_answer, is_correct, selected_lang)
@@ -535,12 +507,6 @@ def save_result(category, question, user_answer, correct_answer, is_correct, lan
             conn.commit()
         except Error as e:
             print(f"Ma'lumotni yozishda xato: {e}")
-
-
-
-
-
-
 
 
 # Tugmalarni o‘chirish
@@ -569,9 +535,9 @@ def create_answer_buttons():
         answer_button = tk.Button(
             frame_buttons,
             text=option,
-            font=("Arial", 14),
+            font=("Arial", 12),
             bg="#90EE90",
-            width=20,
+            width=38,
             height=2,
             command=lambda answer=option: check_answer(answer)  # ✅ shunday bo‘lishi shart!
         )
@@ -582,25 +548,29 @@ def create_answer_buttons():
 
 # Kategoriya tugmalarini yaratish
 def create_category_buttons():
-    animals_button = tk.Button(root, text="Hayvonlar / जानवर (Jaanvar)", font=("Arial", 14), bg="#ADD8E6", width=40, height=1,
-                               command=lambda: speak_and_show_category("Hayvonlar / जानवर (Jaanvar)", "Animals"))
-    fruits_button = tk.Button(root, text="Mevalar / फल (Phal)", font=("Arial", 14), bg="#ADD8E6", width=40, height=1,
-                              command=lambda: speak_and_show_category("Mevalar / फल (Phal)", "Fruits"))
-    birds_button = tk.Button(root, text="Qushlar / पक्षी (Pakshī)", font=("Arial", 14), bg="#ADD8E6", width=40, height=1,
-                             command=lambda: speak_and_show_category("Qushlar / पक्षी (Pakshī)", "Birds"))
-    colors_button = tk.Button(root, text="Ranglar / रंग (Rang)", font=("Arial", 14), bg="#ADD8E6", width=40, height=1,
-                              command=lambda: speak_and_show_category("Ranglar / रंग (Rang)", "Colors"))
-    school_items_button = tk.Button(root, text="O‘quv qurollari / अध्ययन सामग्री", font=("Arial", 14), bg="#ADD8E6", width=40, height=1,
-                                    command=lambda: speak_and_show_category("O‘quv qurollari / अध्ययन सामग्री", "School Items"))
-    foods_button = tk.Button(root, text="Ovqatlar / खाना (khaana)", font=("Arial", 14), bg="#ADD8E6", width=40, height=1,
-                             command=lambda: speak_and_show_category("Ovqatlar / खाना (khaana)", "Foods"))
+    categories = [
+        ("Hayvonlar / जानवर (Jaanvar)/ Животные / Animals", "Hayvonlar"),
+        ("Mevalar / फल (Phal) / Фрукты / Fruits", "Mevalar"),
+        ("Qushlar / पक्षी (Pakshi) / Птицы / Birds", "Qushlar"),
+        ("Ranglar / रंग (Rang) / Цвета / Colors", "Ranglar"),
+        ("O‘quv qurollari / अध्ययन सामग्री / Школьные принадлежности / School supplies", "Maktab buyumlari"),
+        ("Ovqatlar / खाना (khaana) / Питание / Meals", "Ovqatlar")
+    ]
+    
+    for category_label, _ in categories:
+        btn = tk.Button(
+            root, 
+            text=category_label, 
+            font=("Arial", 14), 
+            bg="#ADD8E6", 
+            width=80, 
+            height=1,
+            command=lambda cat=category_label: speak_and_show_category(cat)  # Faqat category_label o'tkazilmoqda
+        )
+        btn.pack(pady=5)
 
-    animals_button.pack(pady=5)
-    fruits_button.pack(pady=5)
-    birds_button.pack(pady=5)
-    colors_button.pack(pady=5)
-    school_items_button.pack(pady=5)
-    foods_button.pack(pady=5)
+
+
 
 
 # Dasturdan chiqish tugmasi
@@ -616,12 +586,12 @@ frame_buttons.pack(pady=20)
 
 # Dastur boshlanganda ovozli ko‘rsatma
 def speak_choose_category():
-    if selected_lang == "uz":
-        speak_gtts("Iltimos, kategoriya tanlang.", lang='uz')
+    if selected_lang == "ru":
+        speak_gtts("Пожалуйста, выберите категорию.", lang='ru')
     elif selected_lang == "hi":
         speak_gtts("कृपया श्रेणी चुनें।", lang='hi')
-    elif selected_lang == "ru":
-        speak_gtts("Пожалуйста, выберите категорию.", lang='ru')
+    elif selected_lang == "uz":
+        speak_gtts("Iltimos, kategoriya tanlang.", lang='uz')
     elif selected_lang == "en":
         speak_gtts("Please choose a category.", lang='en')
 
@@ -632,19 +602,20 @@ root.after(500, speak_choose_category)  # 1 sekunddan keyin ovozda aytsin
 
 
 
-def speak_and_show_category(category_label, category_key):
+def speak_and_show_category(category_label):
+    """Tanlangan kategoriyani ovozda aytib, so'zlarni ko'rsatish"""
+    # Ovozda kategoriya nomini aytish
     if selected_lang == "uz":
-        speak_gtts(category_key, lang='uz')
+        speak_gtts("Siz " + category_label.split('/')[0].strip() + " kategoriyasini tanladingiz", lang='uz')
     elif selected_lang == "hi":
-        speak_gtts(category_key, lang='hi')
+        speak_gtts("आपने " + category_label.split('/')[1].split('(')[0].strip() + " श्रेणी चुनी है", lang='hi')
     elif selected_lang == "ru":
-        speak_gtts(category_key, lang='ru')
+        speak_gtts("Вы выбрали категорию " + category_label.split('/')[2].strip(), lang='ru')
     elif selected_lang == "en":
-        speak_gtts(category_key, lang='en')
-
+        speak_gtts("You selected " + category_label.split('/')[3].strip() + " category", lang='en')
+    
+    # So'zlarni ko'rsatish
     show_word_and_image(category_label)
-
-
 
 
 
@@ -653,6 +624,10 @@ def speak_gtts_safe(text, lang_code):
     real_lang = lang_code
     if lang_code == "uz":
         real_lang = "ru"  # uz ovoz yo‘q, shuning uchun ruscha bilan gapiramiz
+        real_lang = "hi"
+        real_lang = "en"
+
+
 
     try:
         filename = f"voice_{uuid.uuid4()}.mp3"
@@ -694,5 +669,4 @@ ask_user_info(root)
 # Dastur oynasini boshlash
 create_category_buttons()
 root.mainloop()
-
 
